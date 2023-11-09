@@ -2,7 +2,9 @@ package com.example.fastcampusmysql.domain.member.repository;
 
 import com.example.fastcampusmysql.domain.member.entity.Member;
 import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +14,10 @@ public class MemberRepository {
     final private NamedParameterJdbcTemplate jdbcTemplate;
     public Member save(Member member){
 
-        return member;
+        if (member.getId() == null){
+            return insert(member);
+        }
+        return update(member);
     }
 
 
@@ -23,6 +28,17 @@ public class MemberRepository {
         SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate.getJdbcTemplate())
                 .withTableName("Member")
                 .usingGeneratedKeyColumns("id");
+        SqlParameterSource params = new BeanPropertySqlParameterSource(member);
+        var id = simpleJdbcInsert.executeAndReturnKey(params).longValue();
+
+        return Member
+                .builder()
+                .id(id)
+                .email(member.getEmail())
+                .nickname(member.getNickname())
+                .birthday(member.getBirthday())
+                .createAt(member.getCreateAt())
+                .build();
     }
 
     private Member update(Member member){

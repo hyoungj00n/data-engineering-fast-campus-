@@ -17,16 +17,16 @@ public class Member {
 
     final private String email;
 
-    final private LocalDate birth;
+    final private LocalDate birthday;
 
     final private LocalDate createAt;//debugging시 도움 된다.
 
     final private static Long NAME_MAX_LENGTH = 10L;
     @Builder //constructor 생성 단축키 cmd+n하고 shift로 전체 선택 가능
-    public Member(Long id, String nickname, String email, LocalDate birth, LocalDate createAt) {
+    public Member(Long id, String nickname, String email, LocalDate birthday, LocalDate createAt) {
         this.id = id;
         this.email = Objects.requireNonNull(email); 
-        this.birth = Objects.requireNonNull(birth); validateNickname(nickname);
+        this.birthday = Objects.requireNonNull(birthday); validateNickname(nickname);
         this.nickname = Objects.requireNonNull(nickname);
 
 

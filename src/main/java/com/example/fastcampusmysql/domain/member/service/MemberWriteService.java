@@ -19,7 +19,7 @@ public class MemberWriteService {
         var member = Member.builder()//Member 클래스에 Builder annotation 사용
                 .nickname(command.nickname())// record 사용해서 사용 가능
                 .email(command.email())
-                .birth(command.birth())
+                .birthday(command.birthday())
                 .build();
         memberRepository.save(member);
 
