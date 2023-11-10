@@ -26,10 +26,9 @@ public class Member {
     public Member(Long id, String nickname, String email, LocalDate birthday, LocalDate createAt) {
         this.id = id;
         this.email = Objects.requireNonNull(email); 
-        this.birthday = Objects.requireNonNull(birthday); validateNickname(nickname);
+        this.birthday = Objects.requireNonNull(birthday);
+        validateNickname(nickname);
         this.nickname = Objects.requireNonNull(nickname);
-
-
         this.createAt = createAt == null ? LocalDate.now() : createAt;
     }
 

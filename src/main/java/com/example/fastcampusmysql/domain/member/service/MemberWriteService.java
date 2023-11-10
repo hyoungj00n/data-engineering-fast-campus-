@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor // 의존성 주입 받으려면 생성자 있어야 해서 생성자 생성 annotation
 public class MemberWriteService {
     final private MemberRepository memberRepository;
-    public void create(RegisterMemberCommand command){
+    public Member register(RegisterMemberCommand command){
         /*
         요구사항
         - 회원 정보(이메일, 닉네임, 생년월일) 등록
@@ -21,7 +21,9 @@ public class MemberWriteService {
                 .email(command.email())
                 .birthday(command.birthday())
                 .build();
-        memberRepository.save(member);
+        return memberRepository.save(member);
+
+
 
     }
 }
